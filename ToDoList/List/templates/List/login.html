@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Вход | PintDaniyar{% endblock %}
+{% block content %}
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <div class="container">
+    <h1>Sign In</h1>
+    {{ form.as_p }}
+      <div class="form-group" id="signup-button">
+        <button class="btn ">Sign In</button>
+      </div>
+    <p>Нет аккаунта? <a href="{% url 'register' %}">Зарегестрируйся</a></p>
+  </div>
+
+</form>
+
+{% endblock content %}

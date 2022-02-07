@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+{% if user.is_authenticated %}
+    <div class="container">
+        <div class="m-5">
+        <h1>Создать цель.</h1>
+            <form method="POST" class="post-form">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="save btn btn-default">Сохранить</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="container mb-4">
+        {% if post_list %}
+            {% for post in post_list %}
+            <div class="m-5">
+               <a href="{% url 'detail' post.pk %}"><p><h5><input type="checkbox"> {{ post.title }} Состояние: {{ post.is_done }}</h5></p></a>
+            </div>
+            {% endfor %}
+        {% else %}
+        <div class="m-5">
+            <h4>Делать нечего</h4>
+        </div>
+        {% endif %}
+    </div>
+    <div class="container">
+        <div class="m-5">
+            <form method="POST" action="{% url 'post_delete_all' %}" class="post-form">
+                {% csrf_token %}
+                <button type="submit" class="save btn btn-default">Удалить все</button>
+            </form>
+        </div>
+    </div>
+
+
+{% else %}
+<div class="container mb-4">
+    <br>
+    <br>
+    <br>
+    <h1>Для работы необходимо зарегестрироваться или войти.<br><br>
+        <a href="{% url 'register' %}">Зарегестрироваться...<br><br>
+        <a href="{% url 'login' %}">Войти...</a></h1><br>
+</div>
+{% endif %}
+
+{% endblock %}

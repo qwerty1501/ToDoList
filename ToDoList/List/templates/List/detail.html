@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.text }}</p>
+</div>
+
+{% if user == post.author %}
+<div class="container mb-2">
+    <button class="save btn btn-default"><i class='fa fa-pencil fa-lg'></i><a href="{% url 'post_edit' pk=post.pk %}"> Редактировать</a></button>
+    <button type="submit" class="save btn btn-default"><i class="fa fa-trash-o fa-lg"></i><a href="{% url 'post_delete' pk=post.pk %}"> Удалить</a></button>
+    {% if post.is_done == False %}
+    <button type="submit" class="save btn btn-default"><i class='fa fa-pencil fa-lg'></i><a href="{% url 'post_done' pk=post.pk %}"> Выполнено</a></button>
+    {% else %}
+    <button type="submit" class="save btn btn-default"><i class='fa fa-pencil fa-lg'></i><a href="{% url 'post_not_done' pk=post.pk %}"> Не выполнено</a></button>
+    {% endif %}
+</div>
+{% endif %}
+
+{% endblock %}
